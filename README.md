@@ -1,2 +1,2 @@
 # Cafe-Chill ☕
-A website where people can chill, listen to lofi music, and meet new people.
+A website where people can listen to lofi music, meet new people, and just simply chill.
