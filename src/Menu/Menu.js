@@ -13,8 +13,11 @@ class Menu extends React.Component{
         return(
             <nav id="menu">
                 <h1 id="menu_title">
-                    <Link to="/">Cafe-Chill</Link> 
+                    <Link to="/" style={{ textDecoration: 'none'}}>Cafe-Chill</Link> 
                 </h1>
+                <button id="login_register_button">
+                    Login/Register
+                </button>
             </nav>
         );
     }

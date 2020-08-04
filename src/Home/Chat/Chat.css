@@ -1,0 +1,31 @@
+#chat_container{
+    height: 100%;
+    width: 100%;
+}
+
+#chat_box{
+    position:absolute;
+    bottom:0;
+    width: 300px;
+}
+
+#chat_input{
+    border:none;
+    width: 100%;
+}
+
+#send_button{
+    border: 1px;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 125px;
+    background-color: #384f85;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#send_button:hover{
+    background-color: #465881;
+}

@@ -1,12 +1,37 @@
 #menu{
     width: 100%;
-    height: 50px;
+    height: 60px;
     margin: 0px;
-    background-color: #070a1c;
+    background-color: #14244B;
+    text-align: center;
 }
 
 #menu_title{
     margin: 0px;
-    text-align: center;
+    display:inline-block;
+    
     color: #ffffff;
+    font-family: 'Pacifico', cursive;
+    font-size: 32px;
+ 
+}
+
+#login_register_button{
+    background-color: #14244B;
+   color: #ffffff;
+   border: 1px solid #ffffff;
+   padding: 5px;
+   border-radius: 5px;
+   font-size: 16px;
+   position: relative;
+   top: 50%;
+   transform: translateY(-50%);
+   margin-right: 10px;
+   float: right;
+   font-family: 'Roboto', sans-serif;
+}
+
+#login_register_button:hover{
+    background-color: #1D3B81;
+    cursor: pointer;
 }

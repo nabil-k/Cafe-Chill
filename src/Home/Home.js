@@ -1,5 +1,7 @@
 import React from 'react';
 import "./Home.css";
+import Stream from './Stream/Stream';
+import Chat from './Chat/Chat';
 
 class Home extends React.Component{
     constructor(props){
@@ -8,7 +10,14 @@ class Home extends React.Component{
 
     render(){ 
         return(
-            <h1>Home</h1>
+            <div id="container">
+                <div id="stream">
+                    <Stream/>
+                </div>
+                <div id="chat_parent_container">
+                    <Chat/>
+                </div>
+            </div>
         );
     }
 }
