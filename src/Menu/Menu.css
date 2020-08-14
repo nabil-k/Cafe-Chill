@@ -13,7 +13,10 @@
     color: #ffffff;
     font-family: 'Pacifico', cursive;
     font-size: 32px;
- 
+}
+
+#menu_title_text:hover{
+    color: #ffffff !important;
 }
 
 #login_register_button{
