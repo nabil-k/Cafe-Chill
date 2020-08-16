@@ -17,6 +17,7 @@ class Stream extends React.Component{
     }
 }
 
+
 const play = ({
     spotify_uri,
     playerInstance:{
@@ -50,7 +51,6 @@ function initPlayer(){
         })
         .then(response_access_token =>{
             const access_token = response_access_token.access_token
-            console.log(access_token)
             const player = new window.Spotify.Player({
                 name:'Web Playback SDK Player',
                 getOAuthToken: cb => {cb(access_token)}
@@ -62,16 +62,42 @@ function initPlayer(){
             player.addListener('account_error', ({ message }) => { console.error(message); });
             player.addListener('playback_error', ({ message }) => { console.error(message); });
 
-            // Playback status updates
-            player.addListener('player_state_changed', state => { console.log(state); });
-
             // Ready
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
-                play({
-                    playerInstance: player,
-                    spotify_uri: "spotify:track:0K5csd4qfsfVQxm0er12C7",
+                
+                fetch('http://127.0.0.1:8000/spotify/playlist',{method:'GET'})
+                .then(response =>{
+                    return response.json()
                 })
+                .then(playlist=> {
+                    var play_position = playlist.play_position
+                    var starting_track_uri = playlist.track_batches[play_position.batches_index].items[play_position.track_index].track.uri
+                    console.log(starting_track_uri)
+                    console.log(Math.round(play_position.track_play_position * 1000))
+                    
+                    play({
+                        playerInstance: player,
+                        spotify_uri: starting_track_uri,
+                    })
+                    
+                    var playback_started =  true
+
+                    player.addListener('player_state_changed', state => { 
+                        if(playback_started){
+                            player.seek( Math.round(play_position.track_play_position * 1000)).then(()=>{
+                                console.log("CHANGED POS")
+                                playback_started = false
+                                console.log(player.getCurrentState())
+                            })
+
+                        }
+                        
+                    });
+                })
+
+
+
             });
 
             // Not Ready
@@ -93,5 +119,7 @@ function initPlayer(){
 
     }
 }
+
+
 
 export default Stream;
