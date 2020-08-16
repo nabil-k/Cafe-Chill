@@ -81,43 +81,55 @@ function initPlayer(){
                         var batch_index;
                         for(batch_index = 1; batch_index < (playlistBatches.track_batches).length; batch_index++){
                             playlist =playlist.concat(playlistBatches.track_batches[batch_index].items)
-                            console.log(playlist)
                         }
                     }
-                    console.log(playlist)
 
                     var play_position = playlistBatches.play_position
-                    var starting_track_index = (play_position.batches_index * 100) + play_position.track_index
-                    var starting_track = playlist[starting_track_index].track
-
-                    console.log(starting_track.uri)
+                    var track_index = (play_position.batches_index * 100) + play_position.track_index
+                    var track = playlist[track_index].track
                     var starting_pos = Math.round(play_position.track_play_position * 1000)
-                    
+                    var prev_track_uri =  track.uri;
                     play({
                         playerInstance: player,
-                        spotify_uri: starting_track.uri,
+                        spotify_uri: track.uri,
                     })
                     
                     var startedPlaylist = true;
+                    var changedTrack = false;
                     player.addListener('player_state_changed', state => { 
                         console.log(state)
                         // Sets where the track should begin playing
                         if(startedPlaylist){
                             player.seek(starting_pos).then(()=>{
-                                console.log("CHANGED POS");
-                                console.log(starting_pos);
                                 player.getCurrentState().then(playerState =>{
                                     if(playerState.position >= starting_pos){
                                         startedPlaylist = false;
                                     }
                                 })
-                                // startedPlaylist = false;
+                                
                             })
                         }
                         // Moves to next track once the current track is done
                         else{
+                            if(state.position > 0){
+                                changedTrack = false;
+                            }
                             if(state.paused && (state.position == 0)){
+                                if(!changedTrack){
+                                    track_index++; 
+                                    if(track_index == playlist.length){
+                                        track_index = 0;
+                                    }
 
+                                    console.log(`New Track Index: ${track_index}`)
+
+                                    track = playlist[track_index].track
+                                    play({
+                                        playerInstance: player,
+                                        spotify_uri: track.uri,
+                                    })
+                                    changedTrack = true;
+                                }
                             }
                         }
                     });
