@@ -73,20 +73,35 @@ function initPlayer(){
                 .then(response =>{
                     return response.json()
                 })
-                .then(playlist=> {
-                    var play_position = playlist.play_position
-                    var starting_track_uri = playlist.track_batches[play_position.batches_index].items[play_position.track_index].track.uri
-                    console.log(starting_track_uri)
+                .then(playlistBatches => {
+                    var playlist = playlistBatches.track_batches[0].items
+
+                    // Combines batches from the response above if need be
+                    if( (playlistBatches.track_batches).length >= 2 ){
+                        var batch_index;
+                        for(batch_index = 1; batch_index < (playlistBatches.track_batches).length; batch_index++){
+                            playlist =playlist.concat(playlistBatches.track_batches[batch_index].items)
+                            console.log(playlist)
+                        }
+                    }
+                    console.log(playlist)
+
+                    var play_position = playlistBatches.play_position
+                    var starting_track_index = (play_position.batches_index * 100) + play_position.track_index
+                    var starting_track = playlist[starting_track_index].track
+
+                    console.log(starting_track.uri)
                     var starting_pos = Math.round(play_position.track_play_position * 1000)
                     
                     play({
                         playerInstance: player,
-                        spotify_uri: starting_track_uri,
+                        spotify_uri: starting_track.uri,
                     })
                     
                     var startedPlaylist = true;
                     player.addListener('player_state_changed', state => { 
                         console.log(state)
+                        // Sets where the track should begin playing
                         if(startedPlaylist){
                             player.seek(starting_pos).then(()=>{
                                 console.log("CHANGED POS");
@@ -98,6 +113,12 @@ function initPlayer(){
                                 })
                                 // startedPlaylist = false;
                             })
+                        }
+                        // Moves to next track once the current track is done
+                        else{
+                            if(state.paused && (state.position == 0)){
+
+                            }
                         }
                     });
                 })
