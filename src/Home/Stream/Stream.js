@@ -20,6 +20,7 @@ class Stream extends React.Component{
 
 const play = ({
     spotify_uri,
+    starting_pos,
     playerInstance:{
         _options:{
             getOAuthToken,
@@ -37,6 +38,8 @@ const play = ({
             }
         });
     });
+
+
 };
 
 function initPlayer(){
@@ -74,25 +77,28 @@ function initPlayer(){
                     var play_position = playlist.play_position
                     var starting_track_uri = playlist.track_batches[play_position.batches_index].items[play_position.track_index].track.uri
                     console.log(starting_track_uri)
-                    console.log(Math.round(play_position.track_play_position * 1000))
+                    var starting_pos = Math.round(play_position.track_play_position * 1000)
                     
                     play({
                         playerInstance: player,
                         spotify_uri: starting_track_uri,
                     })
                     
-                    var playback_started =  true
-
+                    var startedPlaylist = true;
                     player.addListener('player_state_changed', state => { 
-                        if(playback_started){
-                            player.seek( Math.round(play_position.track_play_position * 1000)).then(()=>{
-                                console.log("CHANGED POS")
-                                playback_started = false
-                                console.log(player.getCurrentState())
+                        console.log(state)
+                        if(startedPlaylist){
+                            player.seek(starting_pos).then(()=>{
+                                console.log("CHANGED POS");
+                                console.log(starting_pos);
+                                player.getCurrentState().then(playerState =>{
+                                    if(playerState.position >= starting_pos){
+                                        startedPlaylist = false;
+                                    }
+                                })
+                                // startedPlaylist = false;
                             })
-
                         }
-                        
                     });
                 })
 
