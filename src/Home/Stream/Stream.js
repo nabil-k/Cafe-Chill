@@ -5,12 +5,12 @@ class Stream extends React.Component{
 
     constructor(props){
         super(props);
-        initPlayer();
+        startPlayer();
     }
 
     render(){ 
         return(
-            <div >
+            <div id="steamContainer">
                 <p>test</p>
             </div>
         );
@@ -29,6 +29,7 @@ const play = ({
     }
 }) => {
     getOAuthToken(token =>{
+        console.log(token); // probably need to get new one here too
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`,{
             method:'PUT',
             body: JSON.stringify({uris:[spotify_uri]}),
@@ -38,14 +39,14 @@ const play = ({
             }
         });
     });
-
-
 };
 
-function initPlayer(){
+function startPlayer(){
     
     window.onSpotifyWebPlaybackSDKReady = () =>{
         // Gets spotify access token
+        var starting_date = new Date();
+        var tokenStartTime = starting_date.getTime();
         fetch('http://127.0.0.1:8000/spotify/accessToken?format=json', {method:"GET"})
         .then(response => {
             var responseJSON = response.json()
@@ -53,10 +54,35 @@ function initPlayer(){
             return responseJSON
         })
         .then(response_access_token =>{
-            const access_token = response_access_token.access_token
+            var access_token = response_access_token.access_token
             const player = new window.Spotify.Player({
                 name:'Web Playback SDK Player',
-                getOAuthToken: cb => {cb(access_token)}
+                getOAuthToken: cb => {
+                    console.log(tokenStartTime)
+                    var date = new Date();
+                    var timeSinceTokenCreated = date.getTime() - tokenStartTime;
+                    console.log(date.getTime())
+                    console.log(timeSinceTokenCreated / 1000)
+                    // Creates and uses a new token every 40 minutes
+                    if(timeSinceTokenCreated >= 40 * 60000){
+                        console.log("IF")
+                        fetch('http://127.0.0.1:8000/spotify/accessToken?format=json', {method:"GET"})
+                        .then(response => {
+                            var responseJSON = response.json()
+                            console.log(responseJSON)
+                            return responseJSON
+                        })
+                        .then(refreshed_access_token =>{
+                            access_token = refreshed_access_token.access_token
+                            cb(access_token)
+                            tokenStartTime = date.getTime();
+                        })
+                    }else{
+                        console.log("ELSE")
+                        cb(access_token)
+                    }
+
+                }
             });
 
             // Error handling
@@ -88,7 +114,6 @@ function initPlayer(){
                     var track_index = (play_position.batches_index * 100) + play_position.track_index
                     var track = playlist[track_index].track
                     var starting_pos = Math.round(play_position.track_play_position * 1000)
-                    var prev_track_uri =  track.uri;
                     play({
                         playerInstance: player,
                         spotify_uri: track.uri,
