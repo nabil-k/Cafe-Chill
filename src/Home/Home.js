@@ -11,12 +11,8 @@ class Home extends React.Component{
     render(){ 
         return(
             <div id="container">
-                <div id="stream">
-                    <Stream/>
-                </div>
-                <div id="chat_parent_container">
-                    <Chat/>
-                </div>
+                <Chat id="chatContainer"/> 
+                <Stream id="streamContainer"/>
             </div>
         );
     }

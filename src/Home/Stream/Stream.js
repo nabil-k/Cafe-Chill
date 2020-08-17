@@ -10,8 +10,9 @@ class Stream extends React.Component{
 
     render(){ 
         return(
-            <div id="steamContainer">
+            <div id="streamContainer">
                 <p>test</p>
+                <img src="https://i.scdn.co/image/ab67616d0000b2738e3341d2a252d18410b39917" width="640" height="640"/>
             </div>
         );
     }

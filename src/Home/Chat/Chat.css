@@ -1,6 +1,9 @@
 #chat_container{
+    padding: 0px;
+    width: 300px;
     height: 100%;
-    width: 100%;
+    border-left: 2px solid #384f85;
+    float:right;
 }
 
 #chat_box{
