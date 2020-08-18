@@ -1,5 +1,7 @@
 import React from 'react';
-import "./Stream.css";
+import './Stream.css';
+import playButtonImg from '../../assets/play_button.png'
+import pauseButtonImg from '../../assets/pause_button.png'
 
 class Stream extends React.Component{
 
@@ -7,8 +9,14 @@ class Stream extends React.Component{
         super(props);
         this.startPlayer();
         this.state = {
-            current_track_image: null
+            current_track_name: null,
+            current_track_artists: null,
+            current_track_image: null,
+            current_track_volume: null,
+            toggledPlay: false
         }
+
+        this.togglePlay = this.togglePlay.bind(this)
     }
     
     // Spotify play function
@@ -114,9 +122,19 @@ class Stream extends React.Component{
                             spotify_uri: track.uri,
                         })
 
-                        this.setState({
-                            current_track_image: track.album.images[0].url
+                        player.getVolume().then(volume => {
+                            console.log(volume)
+                            this.setState({
+                                current_track_name: track.name,
+                                current_track_artists:
+                                (track.artists).map( (artist) =>
+                                        <span>{artist.name}</span>
+                                 ),
+                                current_track_image: track.album.images[0].url,
+                                current_track_volume: volume
+                            })
                         })
+    
                         
                         var startedPlaylist = true;
                         var changedTrack = false;
@@ -154,7 +172,12 @@ class Stream extends React.Component{
                                         })
                                         
                                         this.setState({
-                                            current_track_image: track.album.images[0].url
+                                            current_track_name: track.name,
+                                            current_track_artists:
+                                            (track.artists).map( (artist) =>
+                                                    <span>{artist.name}</span>
+                                             ),
+                                            current_track_image: track.album.images[0].url,
                                         })
 
                                         changedTrack = true;
@@ -193,15 +216,32 @@ class Stream extends React.Component{
         
     }
 
-    render(){ 
+    // Handles toggling pause/play
+    togglePlay(){
+        console.log(this.state.toggledPlay)
+        this.setState({
+            toggledPlay: !(this.state.toggledPlay)
+        })
+    }
+    
+    render(){
         return(
             <div id="streamContainer">
                 <div id="playback_image_container" >
                     <div id="playback_image_background" style={ {backgroundImage:`url(${this.state.current_track_image})`} }></div>
                     <img id="playback_image" src={this.state.current_track_image} width="640" height="640"/>
                 </div>
-                <div id="playback_controls">
-                    <p>t</p>
+                <div id="playbackControlsContainer">
+                    <div class="playback_controls">
+                        <p>Track: {this.state.current_track_name}</p>
+                        <p>Artist: {this.state.current_track_artists}</p>
+                    </div>
+                    <div class="playback_controls">
+                        <div id="togglePlayButton" onClick={this.togglePlay}>
+                            <img src={ this.state.toggledPlay ?  playButtonImg:pauseButtonImg } width="64" height="64"/>
+                        </div>
+                    </div>
+                    <div class="playback_controls"></div>
                 </div>
             </div>
         );
