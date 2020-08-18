@@ -18,6 +18,7 @@ class Stream extends React.Component{
         }
 
         this.togglePlay = this.togglePlay.bind(this)
+        this.adjustVolume = this.adjustVolume.bind(this)
     }
     
     // Spotify play function
@@ -176,7 +177,7 @@ class Stream extends React.Component{
                                             current_track_name: track.name,
                                             current_track_artists:
                                             (track.artists).map( (artist, index) =>
-                                                    <span>{artist.name} {index ? ', ':''}</span>
+                                                    <span>{ (index ? ', ':'') + artist.name}</span>
                                              ),
                                             current_track_image: track.album.images[0].url,
                                         })
@@ -219,7 +220,6 @@ class Stream extends React.Component{
 
     // Handles toggling pause/play
     togglePlay(){
-        console.log(this.state.toggledPlay)
         this.setState({
             toggledPlay: !(this.state.toggledPlay)
         })
@@ -228,6 +228,17 @@ class Stream extends React.Component{
             console.error(error)
         })
 
+    }
+
+    // Adjusts player volume
+    adjustVolume(event){
+        var newVolume = event.target.value / 100;
+        this.setState({
+            volume: newVolume
+        })
+        this.state.player.setVolume(this.state.volume).then(() => {
+            console.log('Volume updated: ' + this.state.volume);
+        });
     }
     
     render(){
@@ -248,7 +259,7 @@ class Stream extends React.Component{
                         </div>
                     </div>
                     <div class="playback_controls">
-                        <input type="range" min="1" max="100" value="100" />
+                        <input type="range" min="1" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
                     </div>
                 </div>
             </div>
