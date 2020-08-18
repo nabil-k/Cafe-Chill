@@ -250,8 +250,10 @@ class Stream extends React.Component{
                 </div>
                 <div id="playbackControlsContainer">
                     <div class="playback_controls">
-                        <p>Track: {this.state.current_track_name}</p>
-                        <p>Artist: {this.state.current_track_artists}</p>
+                        <div id="trackInfo">
+                            <p>Track: {this.state.current_track_name}</p>
+                            <p>Artist: {this.state.current_track_artists}</p>
+                        </div>
                     </div>
                     <div class="playback_controls">
                         <div id="togglePlayButton" onClick={this.togglePlay}>
@@ -259,7 +261,9 @@ class Stream extends React.Component{
                         </div>
                     </div>
                     <div class="playback_controls">
-                        <input type="range" min="1" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
+                        <div id="volumeSliderContainer">
+                            <input type="range" min="1" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
+                        </div>
                     </div>
                 </div>
             </div>
