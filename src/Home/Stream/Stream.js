@@ -9,6 +9,7 @@ class Stream extends React.Component{
         super(props);
         this.startPlayer();
         this.state = {
+            player: null,
             current_track_name: null,
             current_track_artists: null,
             current_track_image: null,
@@ -124,6 +125,7 @@ class Stream extends React.Component{
 
                         player.getVolume().then(volume => {
                             this.setState({
+                                player: player,
                                 current_track_name: track.name,
                                 current_track_artists:
                                 (track.artists).map( (artist) =>
@@ -173,8 +175,8 @@ class Stream extends React.Component{
                                         this.setState({
                                             current_track_name: track.name,
                                             current_track_artists:
-                                            (track.artists).map( (artist) =>
-                                                    <span>{artist.name}</span>
+                                            (track.artists).map( (artist, index) =>
+                                                    <span>{artist.name} {index ? ', ':''}</span>
                                              ),
                                             current_track_image: track.album.images[0].url,
                                         })
@@ -221,6 +223,11 @@ class Stream extends React.Component{
         this.setState({
             toggledPlay: !(this.state.toggledPlay)
         })
+
+        this.state.player.togglePlay().then().catch(error => {
+            console.error(error)
+        })
+
     }
     
     render(){
