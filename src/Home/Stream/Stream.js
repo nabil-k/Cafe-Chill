@@ -138,10 +138,10 @@ class Stream extends React.Component{
                                 if(state.position > 0){
                                     changedTrack = false;
                                 }
-                                if(state.paused && (state.position == 0)){
+                                if(state.paused && (state.position === 0)){
                                     if(!changedTrack){
                                         track_index++; 
-                                        if(track_index == playlist.length){
+                                        if(track_index === playlist.length){
                                             track_index = 0;
                                         }
     
