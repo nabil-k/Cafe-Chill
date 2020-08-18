@@ -1,6 +1,46 @@
 #streamContainer{
+    position: relative;
     width: auto;
-    height: 100%;
     height: 100%;
     overflow:hidden;
 }
+
+#playback_image_container{
+    position: relative;
+    height: calc(100% - 200px);
+    width: 100%;
+    text-align: center;
+}
+
+#playback_image_background{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    position: absolute;
+    z-index: 1;
+}
+
+#playback_image{
+    position: absolute;
+    left: calc(50% - 320px);
+    top: calc(50% - 320px);
+    z-index: 2;
+}
+
+#playback_controls{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 200px;
+    background-color: #1f283d;
+    flex: 0 1 auto;
+}
+
