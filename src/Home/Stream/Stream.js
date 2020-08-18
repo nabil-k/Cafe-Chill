@@ -123,7 +123,6 @@ class Stream extends React.Component{
                         })
 
                         player.getVolume().then(volume => {
-                            console.log(volume)
                             this.setState({
                                 current_track_name: track.name,
                                 current_track_artists:
@@ -241,7 +240,9 @@ class Stream extends React.Component{
                             <img src={ this.state.toggledPlay ?  playButtonImg:pauseButtonImg } width="64" height="64"/>
                         </div>
                     </div>
-                    <div class="playback_controls"></div>
+                    <div class="playback_controls">
+                        <input type="range" min="1" max="100" value="100" />
+                    </div>
                 </div>
             </div>
         );

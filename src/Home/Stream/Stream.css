@@ -64,3 +64,8 @@
     border: none;
 }
 
+#togglePlayButton:hover{
+    cursor: pointer;
+}
+
+
