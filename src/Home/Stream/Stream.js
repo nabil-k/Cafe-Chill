@@ -1,4 +1,5 @@
 import React from 'react';
+import queryString from 'query-string'
 import './Stream.css';
 import playButtonImg from '../../assets/play_button.png'
 import pauseButtonImg from '../../assets/pause_button.png'
@@ -45,47 +46,65 @@ class Stream extends React.Component{
         });
     };
     
+    // async getCrsrfToken(){
+        
+    //     let response = await fetch('http://127.0.0.1:8000/spotify/csrf', { credentials:'include' })
+    //     let data = await response.json()
+    //     console.log(data)
+    //     let csrfToken = data.csrfToken
+        
+    //     return csrfToken
+    // }
+
     // Inits player and contains logic for playing tracks
     startPlayer(){
         window.onSpotifyWebPlaybackSDKReady = () =>{
             // Gets spotify access token
-            var starting_date = new Date();
-            var tokenStartTime = starting_date.getTime();
-            fetch('http://127.0.0.1:8000/spotify/accessToken?format=json', {method:"GET"})
+            let code = queryString.parse(this.props.location.search).code
+            let refresh_token = localStorage.getItem('refresh_token');
+            fetch(`http://127.0.0.1:8000/spotify/accessToken?format=json&code=${code}&refresh_token=${refresh_token}`, {
+                method:'GET', 
+                credentials: 'include',
+            })
             .then(response => {
-                var responseJSON = response.json()
-                console.log(responseJSON)
-                return responseJSON
+                var responseJSON = response.json();
+                console.log("HERE");
+                console.log(responseJSON);
+                
+                return responseJSON;
             })
             .then(response_access_token =>{
-                var access_token = response_access_token.access_token
+                var access_token = response_access_token.access_token;
+                localStorage.setItem('token_creation_time', response_access_token.token_creation_time)
+                localStorage.setItem('refresh_token', response_access_token.refresh_token)
                 const player = new window.Spotify.Player({
                     name:'Web Playback SDK Player',
                     getOAuthToken: cb => {
-                        console.log(tokenStartTime)
+                        
                         var date = new Date();
-                        var timeSinceTokenCreated = date.getTime() - tokenStartTime;
-                        console.log(date.getTime())
-                        console.log(timeSinceTokenCreated / 1000)
+                        var tokenTimeLeft = (date.getTime() - localStorage.getItem('token_creation_time')) / 1000;
+                        console.log(tokenTimeLeft);
                         // Creates and uses a new token every 40 minutes
-                        if(timeSinceTokenCreated >= 40 * 60000){
-                            console.log("IF")
-                            fetch('http://127.0.0.1:8000/spotify/accessToken?format=json', {method:"GET"})
+                        if(tokenTimeLeft >= 2700){
+                            console.log("IF");
+                            fetch(`http://127.0.0.1:8000/spotify/accessToken?format=json&code=${code}&refresh_token=${refresh_token}`, {method:'GET', credentials: 'include'})
+                            
                             .then(response => {
-                                var responseJSON = response.json()
-                                console.log(responseJSON)
-                                return responseJSON
+                                var responseJSON = response.json();
+                                console.log("HERE");
+                                console.log(responseJSON);
+                                return responseJSON;
                             })
                             .then(refreshed_access_token =>{
-                                access_token = refreshed_access_token.access_token
+                                access_token = refreshed_access_token.access_token;
+                                localStorage.setItem('token_creation_time', refreshed_access_token.refresh_token)
+                                localStorage.setItem('refresh_token', refreshed_access_token.refresh_token)
                                 cb(access_token)
-                                tokenStartTime = date.getTime();
                             })
                         }else{
                             console.log("ELSE")
                             cb(access_token)
-                        }
-    
+                        };
                     }
                 });
     
@@ -249,18 +268,18 @@ class Stream extends React.Component{
                     <img id="playback_image" src={this.state.current_track_image} width="640" height="640"/>
                 </div>
                 <div id="playbackControlsContainer">
-                    <div class="playback_controls">
+                    <div className="playback_controls">
                         <div id="trackInfo">
                             <p>Track: {this.state.current_track_name}</p>
                             <p>Artist: {this.state.current_track_artists}</p>
                         </div>
                     </div>
-                    <div class="playback_controls">
+                    <div className="playback_controls">
                         <div id="togglePlayButton" onClick={this.togglePlay}>
                             <img src={ this.state.toggledPlay ?  playButtonImg:pauseButtonImg } width="64" height="64"/>
                         </div>
                     </div>
-                    <div class="playback_controls">
+                    <div className="playback_controls">
                         <div id="volumeSliderContainer">
                             <input type="range" min="1" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
                         </div>

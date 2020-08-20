@@ -1,0 +1,50 @@
+#container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#backgroundImage{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(510px);
+    filter: blur(10px);
+    position: absolute;
+    z-index: 1;
+
+}
+
+#header{
+    position: absolute;
+    bottom: calc(50% - 150px);
+    left: calc(50% - 375px);
+    width: 750px;
+    height: 300px;
+    z-index: 2;
+}
+
+#authorizeButton{
+    width: 200px;
+    border: 1px solid rgb(12, 131, 12);
+    border-radius: 10px;
+    padding: 5px;
+    background-color: rgb(12, 131, 12);
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 22px;
+}
+
+#authorizeButton:hover{
+    background-color: rgb(12, 172, 12);
+    border: 1px solid rgb(12, 172, 12);
+    cursor: pointer;
+}
