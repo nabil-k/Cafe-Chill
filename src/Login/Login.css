@@ -1,0 +1,10 @@
+#formContainer{
+    margin: auto;
+    width: 50%;
+}
+
+#inputContainer{
+    width: 200px;
+    height: 500px;
+    padding: 10px;
+}

@@ -4,12 +4,13 @@
     margin: 0px;
     background-color: #14244B;
     text-align: center;
+    position: relative;
 }
 
 #menu_title{
     margin: 0px;
+    padding: 10px;
     display:inline-block;
-    
     color: #ffffff;
     font-family: 'Pacifico', cursive;
     font-size: 32px;
@@ -19,22 +20,47 @@
     color: #ffffff !important;
 }
 
-#login_register_button{
-    background-color: #14244B;
-   color: #ffffff;
-   border: 1px solid #ffffff;
-   padding: 5px;
-   border-radius: 5px;
-   font-size: 16px;
-   position: relative;
-   top: 50%;
-   transform: translateY(-50%);
-   margin-right: 10px;
-   float: right;
-   font-family: 'Roboto', sans-serif;
+#loginButton{
+    background-color: #813a19;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    width: 70px;
 }
 
-#login_register_button:hover{
-    background-color: #1D3B81;
+#loginButton:hover{
+    background-color: #9c4821;
+    cursor: pointer;
+}
+
+#registerButton{
+    background-color: #50240f;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    width: 70px;
+}
+
+
+#registerButton:hover{
+    background-color: #743315;
     cursor: pointer;
 }

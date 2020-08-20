@@ -13,6 +13,7 @@ import Menu from './Menu/Menu';
 import Profile from './Profile/Profile';
 import Authorize from './Authorize/Authorize';
 import Register from './Register/Register';
+import Login from './Login/Login'
 
 function App() {
     return (
@@ -25,6 +26,9 @@ function App() {
                 <Route path="/register">
                     <Register/>
                 </Route>
+                <Route path="/login">
+                    <Login/>
+                </Route>
                 <Route path="/home" component={Home} />
                 <Route path="/authorize">
                     <Authorize/>
@@ -32,6 +36,7 @@ function App() {
                 <Route exact path="/">
                     <Redirect to="/authorize" />
                 </Route>
+                
             </Switch>
         </Router>
     );

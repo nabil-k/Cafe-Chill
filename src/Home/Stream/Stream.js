@@ -84,7 +84,7 @@ class Stream extends React.Component{
                         var date = new Date();
                         var tokenTimeLeft = (date.getTime() - localStorage.getItem('token_creation_time')) / 1000;
                         console.log(tokenTimeLeft);
-                        // Creates and uses a new token every 40 minutes
+                        // Creates and uses a new token every 40 minutes (2700 sec)
                         if(tokenTimeLeft >= 2700){
                             console.log("IF");
                             fetch(`http://127.0.0.1:8000/spotify/accessToken?format=json&code=${code}&refresh_token=${refresh_token}`, {method:'GET', credentials: 'include'})
@@ -97,7 +97,7 @@ class Stream extends React.Component{
                             })
                             .then(refreshed_access_token =>{
                                 access_token = refreshed_access_token.access_token;
-                                localStorage.setItem('token_creation_time', refreshed_access_token.refresh_token)
+                                localStorage.setItem('token_creation_time', refreshed_access_token.token_creation_time)
                                 localStorage.setItem('refresh_token', refreshed_access_token.refresh_token)
                                 cb(access_token)
                             })
@@ -230,7 +230,7 @@ class Stream extends React.Component{
     }
 
     componentDidMount(){
-
+        
     }
 
     componentWillUnmount(){
