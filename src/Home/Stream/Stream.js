@@ -281,7 +281,7 @@ class Stream extends React.Component{
                     </div>
                     <div className="playback_controls">
                         <div id="volumeSliderContainer">
-                            <input type="range" min="1" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
+                            <input type="range" min="0" max="100" value={this.state.volume * 100} onChange={this.adjustVolume} step="1"/>
                         </div>
                     </div>
                 </div>
@@ -289,10 +289,5 @@ class Stream extends React.Component{
         );
     }
 }
-
-
-
-
-
 
 export default Stream;
