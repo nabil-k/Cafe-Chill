@@ -1,5 +1,6 @@
 import React from 'react';
-import "./Register.css";
+import './Register.css';
+import { useHistory } from 'react-router-dom';
 
 class Register extends React.Component{
     constructor(props){
@@ -12,15 +13,40 @@ class Register extends React.Component{
         };
 
         this.register =  this.register.bind(this);
+        this.checkCookie =  this.checkCookie.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.setDisplayName = this.setDisplayName.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.setPasswordConfirmed = this.setPasswordConfirmed.bind(this);
     }
 
+    register(event){
+        event.preventDefault();
+        fetch('http://127.0.0.1:8000/website/register', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+            body: JSON.stringify(this.state)
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(data =>{
+            document.cookie= "session_token=" + data.session_token
+        })
+       
+    }
 
-    register(){
-        console.log(this.state)
+    checkCookie(){
+        fetch('http://127.0.0.1:8000/website/seeCookie',{
+            method: 'GET'
+        })
+        .then(resp =>{
+            console.log(resp)
+        })
     }
 
     setEmail(event){
@@ -74,9 +100,9 @@ class Register extends React.Component{
                         <input type="text" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password"/>
                         <input type="submit" value="Register"/>
                     </form>
+                    <button onClick={this.checkCookie}>check cookie</button>
                 </div>
             </div>
-
         )
     }
 }
