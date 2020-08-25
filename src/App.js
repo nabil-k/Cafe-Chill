@@ -30,7 +30,7 @@ class App extends React.Component {
                 method: 'GET'
             })
             .then(response => {
-                return Response;
+                return response.json();
             })
             .then(data => {
                 console.log(data)
@@ -53,11 +53,12 @@ class App extends React.Component {
             method: 'GET'
         })
         .then(response => {
-            return Response;
+            return response.json();
         })
         .then(data => {
             console.log(data)
             let displayName = data.display_name;
+            console.log(displayName)
             this.setState({
                 display_name: displayName
             })

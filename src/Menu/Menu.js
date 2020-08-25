@@ -9,26 +9,34 @@ class Menu extends React.Component{
 
         this.state = {
             spotify_auth: (localStorage.getItem('refresh_token') !== null),
+            display_name: this.props.displayName
         }
         
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.displayName != this.props.displayName){
+            this.setState({
+                display_name: this.props.displayName
+            })
+        }
+    }
+
     render(){
-
-
+        let loggedInName = this.state.display_name;
         let buttons;
-        console.log(this.props.displayName)
-        if(this.props.displayName){
+        console.log(loggedInName)
+        if(loggedInName){
             buttons = 
-            <div id="logContainer">
-                <span>{this.props.displayName}</span>
+            <div className="logContainer">
+                <span>{loggedInName}</span>
                 <button>Log Out</button>    
             </div>
 
         }
         else{
             buttons = 
-            <div id="logContainer">
+            <div className="logContainer">
                 <Link to='/login'>
                     <button id="loginButton">
                         Login
