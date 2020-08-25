@@ -20,6 +20,10 @@
     color: #ffffff !important;
 }
 
+#logContainer{
+    display: inline;
+}
+
 #loginButton{
     background-color: #813a19;
     color: #ffffff;

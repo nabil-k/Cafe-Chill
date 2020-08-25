@@ -1,8 +1,10 @@
 import React from 'react';
 import './Register.css';
+import Cookie from 'js-cookie'
 import { useHistory } from 'react-router-dom';
 
 class Register extends React.Component{
+    
     constructor(props){
         super(props);
         this.state = {
@@ -13,7 +15,6 @@ class Register extends React.Component{
         };
 
         this.register =  this.register.bind(this);
-        this.checkCookie =  this.checkCookie.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.setDisplayName = this.setDisplayName.bind(this);
         this.setPassword = this.setPassword.bind(this);
@@ -22,6 +23,7 @@ class Register extends React.Component{
 
     register(event){
         event.preventDefault();
+        
         fetch('http://127.0.0.1:8000/website/register', {
             method: 'POST',
             credentials: 'include',
@@ -32,21 +34,16 @@ class Register extends React.Component{
             body: JSON.stringify(this.state)
         })
         .then(response => {
-            return response.json()
+            return response.json();
         })
         .then(data =>{
-            document.cookie= "session_token=" + data.session_token
+            Cookie.set('jwt',data.jwt);
+            console.log(this.props)
+            this.props.handler();
+            this.props.history.push('/authorize');
+            
         })
        
-    }
-
-    checkCookie(){
-        fetch('http://127.0.0.1:8000/website/seeCookie',{
-            method: 'GET'
-        })
-        .then(resp =>{
-            console.log(resp)
-        })
     }
 
     setEmail(event){
@@ -58,7 +55,7 @@ class Register extends React.Component{
         })
     
         if(!email_valid){
-            console.log("Email isn't valid")
+            console.log("Email isn't valid");
         }
     }
 
@@ -80,7 +77,7 @@ class Register extends React.Component{
         }, 
         ()=>{
                 if(this.state.password !== this.state.password_confirmed){
-                    console.log("PASSWORDS DONT MATCH")
+                    console.log("PASSWORDS DONT MATCH");
                 }
             }
         );
@@ -90,7 +87,6 @@ class Register extends React.Component{
 
     render(){
         return(
-   
             <div id="formContainer">
                 <div id="inputContainer">
                     <form onSubmit={this.register}>
@@ -100,7 +96,6 @@ class Register extends React.Component{
                         <input type="text" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password"/>
                         <input type="submit" value="Register"/>
                     </form>
-                    <button onClick={this.checkCookie}>check cookie</button>
                 </div>
             </div>
         )
