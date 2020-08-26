@@ -1,7 +1,7 @@
 import React from 'react';
 import './Register.css';
 import Cookie from 'js-cookie';
-
+import cafeLogo from '../assets/server-icon.svg'
 
 class Register extends React.Component{
     
@@ -87,14 +87,15 @@ class Register extends React.Component{
 
     render(){
         return(
-            <div id="formContainer">
-                <div id="inputContainer">
-                    <form onSubmit={this.register}>
-                        <input type="text" value={this.state.email} onChange={this.setEmail} placeholder="Email"/>
-                        <input type="text" value={this.state.display_name} onChange={this.setDisplayName} placeholder="Display Name"/>
-                        <input type="text" value={this.state.password} onChange={this.setPassword} placeholder="Password"/>
-                        <input type="text" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password"/>
-                        <input type="submit" value="Register"/>
+            <div id="registerFormContainer">
+                <div id="registerInputContainer">
+                    <form id="registerForm" onSubmit={this.register}>
+                        <img src={cafeLogo} width="100" height="100"/>
+                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email" required/>
+                        <input className="registerInput" type="text" value={this.state.display_name} onChange={this.setDisplayName} placeholder="Display Name" required/>
+                        <input className="registerInput" type="password" value={this.state.password} onChange={this.setPassword} placeholder="Password" required/>
+                        <input className="registerInput" type="password" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password" required/>
+                        <input className="registerInput" type="submit" id="registerFormButton" value="Register"/>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Login.css";
 import Cookie from 'js-cookie'
+import cafeLogo from '../assets/server-icon.svg'
 
 class Login extends React.Component{
     constructor(props){
@@ -62,14 +63,14 @@ class Login extends React.Component{
     render(){
         return(
    
-            <div id="formContainer">
-                <div id="inputContainer">
-                <form onSubmit={this.login}>
-                    <input type="text" value={this.state.email} onChange={this.setEmail} placeholder="Email"/>
-                    <input type="text" value={this.state.password} onChange={this.setPassword} placeholder="Password"/>
-                    <input type="submit" value="Login"/>
-                </form>
-
+            <div id="loginFormContainer">
+                <div id="loginInputContainer">
+                    <form id="loginForm" onSubmit={this.login}>
+                        <img src={cafeLogo} width="100" height="100"/>
+                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email"/>
+                        <input className="registerInput" type="password" value={this.state.password} onChange={this.setPassword} placeholder="Password"/>
+                        <input className="registerInput" type="submit" id="registerFormButton" value="Login"/>
+                    </form>
                 </div>
             </div>
 

@@ -1,10 +1,51 @@
-#formContainer{
-    margin: auto;
-    width: 50%;
+#registerFormContainer{
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
-#inputContainer{
-    width: 200px;
-    height: 500px;
+#registerInputContainer{
+    position: relative;
+    top: calc(0% + 200px);
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 400px;
     padding: 10px;
+    background-color: #0d1b3b;
+    border: 1px solid #0d1b3b;
+    border-radius: 10px;
+}
+
+#registerForm{
+    text-align:center;
+    padding: 10px 0px;
+}
+
+.registerInput{
+    display: block;
+    margin: 10px auto 10px auto;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    padding: 5px;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+}
+
+#registerFormButton{
+    font-family: 'Roboto', sans-serif;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    width: 120px;
+    border-radius: 5px;
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+#registerFormButton:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
 }
