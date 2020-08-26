@@ -44,28 +44,35 @@ class App extends React.Component {
         this.updateMenu = this.updateMenu.bind(this)
     }
 
-    updateMenu(){
-        let accessToken = Cookie.get("jwt")
-        fetch('http://127.0.0.1:8000/website/userDisplayName?accessToken='+accessToken, {
-            method: 'GET'
-        })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            console.log(data)
-            let displayName = data.display_name;
-            console.log(displayName)
-            this.setState({
-                display_name: displayName
+    updateMenu(logOut){
+        if(!logOut){
+            let accessToken = Cookie.get("jwt")
+            fetch('http://127.0.0.1:8000/website/userDisplayName?accessToken='+accessToken, {
+                method: 'GET'
             })
-        })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                let displayName = data.display_name;
+                console.log(displayName)
+                this.setState({
+                    display_name: displayName
+                })
+            })
+        }else{
+            this.setState({
+                display_name: null
+            })
+        }
+
     }
 
     render(){
         return (
             <Router>
-                <Menu displayName={this.state.display_name} />
+                <Menu displayName={this.state.display_name} handler={this.updateMenu}/>
                 <Switch id="switch">
                     <Route path="/profile">
                         <Profile/>

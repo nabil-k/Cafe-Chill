@@ -25,13 +25,15 @@ class Menu extends React.Component{
     }
 
     logOut(){
-        Cookie.remove('jwt')
+        Cookie.remove('jwt');
         this.setState({
             display_name: null
         })
+        this.props.handler(true);
     }
 
     render(){
+        console.log(this.props.displayName);
         let loggedInName = this.state.display_name;
         let buttons;
         console.log(loggedInName)

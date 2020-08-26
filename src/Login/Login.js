@@ -53,7 +53,7 @@ class Login extends React.Component{
         .then(data =>{
             Cookie.set('jwt',data.jwt);
             console.log(this.props)
-            this.props.handler();
+            this.props.handler(false);
             this.props.history.push('/authorize');
             
         })
@@ -67,7 +67,7 @@ class Login extends React.Component{
                 <div id="loginInputContainer">
                     <form id="loginForm" onSubmit={this.login}>
                         <img src={cafeLogo} width="100" height="100"/>
-                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email"/>
+                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email" autoComplete="email"/>
                         <input className="registerInput" type="password" value={this.state.password} onChange={this.setPassword} placeholder="Password"/>
                         <input className="registerInput" type="submit" id="registerFormButton" value="Login"/>
                     </form>
