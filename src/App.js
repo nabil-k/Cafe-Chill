@@ -21,8 +21,10 @@ class App extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            display_name: null
+            display_name: null,
+            player_init: false
         }
+
         let accessToken = Cookie.get("jwt")
         console.log('accessToken ', accessToken)
         if(accessToken){
@@ -41,7 +43,14 @@ class App extends React.Component {
             })
         }
 
-        this.updateMenu = this.updateMenu.bind(this)
+        this.updateMenu = this.updateMenu.bind(this);
+        this.updatePlayerState = this.updatePlayerState.bind(this);
+    }
+
+    updatePlayerState(){
+        this.setState({
+            player_init: true
+        })
     }
 
     updateMenu(logOut){
@@ -72,19 +81,19 @@ class App extends React.Component {
     render(){
         return (
             <Router>
-                <Menu displayName={this.state.display_name} handler={this.updateMenu}/>
+                <Menu displayName={this.state.display_name} handler={this.updateMenu} />
                 <Switch id="switch">
                     <Route path="/profile">
                         <Profile/>
                     </Route>
                     <Route path="/register" render={(props)=> <Register history={props.history} handler={this.updateMenu}/> } />
                     <Route path="/login" render={(props)=> <Login history={props.history} handler={this.updateMenu}/> } />
-                    <Route path="/home" component={Home} />
+                    <Route path="/home"  render={(props)=> <Home location={props.location} /> } />
                     <Route path="/authorize">
                         <Authorize/>
                     </Route>
                     <Route exact path="/">
-                        <Redirect to="/authorize" />
+                        <Redirect to={(localStorage.getItem('refresh_token') !== null) ? '/home' : '/authorize'} />
                     </Route>
                     
                 </Switch>

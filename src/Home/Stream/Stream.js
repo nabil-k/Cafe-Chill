@@ -16,10 +16,11 @@ class Stream extends React.Component{
             current_track_volume: null,
             toggledPlay: false
         }
-        this.initPlayer()
+        
         this.togglePlay = this.togglePlay.bind(this)
         this.adjustVolume = this.adjustVolume.bind(this)
         this.startPlayer = this.startPlayer.bind(this)
+        
     }
     
     // Spotify play function
@@ -48,10 +49,8 @@ class Stream extends React.Component{
     
 
     initPlayer(){
-        console.log("RUNNING");
-        window.onSpotifyWebPlaybackSDKReady = () =>{
-            this.startPlayer();
-        }
+        console.log("reved up");
+        this.startPlayer();
     }
 
     startPlayer(){
@@ -120,20 +119,20 @@ class Stream extends React.Component{
                     return response.json()
                 })
                 .then(playlistBatches => {
-                    var playlist = playlistBatches.track_batches[0].items
+                    var playlist = playlistBatches.track_batches[0].items;
 
                     // Combines batches from the response above if need be
                     if( (playlistBatches.track_batches).length >= 2 ){
                         var batch_index;
                         for(batch_index = 1; batch_index < (playlistBatches.track_batches).length; batch_index++){
-                            playlist =playlist.concat(playlistBatches.track_batches[batch_index].items)
+                            playlist =playlist.concat(playlistBatches.track_batches[batch_index].items);
                         }
                     }
 
-                    var play_position = playlistBatches.play_position
-                    var track_index = (play_position.batches_index * 100) + play_position.track_index
-                    var track = playlist[track_index].track
-                    var starting_pos = Math.round(play_position.track_play_position * 1000)
+                    var play_position = playlistBatches.play_position;
+                    var track_index = (play_position.batches_index * 100) + play_position.track_index;
+                    var track = playlist[track_index].track;
+                    var starting_pos = Math.round(play_position.track_play_position * 1000);
                     
                     this.play({
                         playerInstance: player,
@@ -160,6 +159,7 @@ class Stream extends React.Component{
                         console.log(state)
                         // Sets where the track should begin playing
                         if(startedPlaylist){
+                            console.log("setting time..")
                             player.seek(starting_pos).then(()=>{
                                 player.getCurrentState().then(playerState =>{
                                     if(playerState.position >= starting_pos){
@@ -225,10 +225,9 @@ class Stream extends React.Component{
             console.log(`Failed to get Spotify Access Token ${error}`)
         })
     }
-
-    componentDidMount(){
-        console.log("now?")
-        this.startPlayer();
+    
+    componentWillMount(){
+        this.initPlayer();
     }
 
     componentWillUnmount(){
