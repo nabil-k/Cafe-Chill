@@ -34,13 +34,10 @@ class App extends React.Component {
             })
             .then(data => {
                 console.log(data)
-                if(data.code == "200"){
-                    let displayName = data.display_name;
-                    this.setState({
-                        display_name: displayName
-                    })
-                }
-
+                let displayName = data.display_name;
+                this.setState({
+                    display_name: displayName
+                })
             })
         }
 
@@ -74,9 +71,7 @@ class App extends React.Component {
                         <Profile/>
                     </Route>
                     <Route path="/register" render={(props)=> <Register history={props.history} handler={this.updateMenu}/> } />
-                    <Route path="/login">
-                        <Login/>
-                    </Route>
+                    <Route path="/login" render={(props)=> <Login history={props.history} handler={this.updateMenu}/> } />
                     <Route path="/home" component={Home} />
                     <Route path="/authorize">
                         <Authorize/>

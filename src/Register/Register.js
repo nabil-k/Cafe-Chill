@@ -1,7 +1,7 @@
 import React from 'react';
 import './Register.css';
-import Cookie from 'js-cookie'
-import { useHistory } from 'react-router-dom';
+import Cookie from 'js-cookie';
+
 
 class Register extends React.Component{
     
