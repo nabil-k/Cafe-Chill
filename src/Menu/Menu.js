@@ -11,6 +11,8 @@ class Menu extends React.Component{
             spotify_auth: (localStorage.getItem('refresh_token') !== null),
             display_name: this.props.displayName
         }
+
+        this.logOut = this.logOut.bind(this);
         
     }
 
@@ -22,6 +24,13 @@ class Menu extends React.Component{
         }
     }
 
+    logOut(){
+        Cookie.remove('jwt')
+        this.setState({
+            display_name: null
+        })
+    }
+
     render(){
         let loggedInName = this.state.display_name;
         let buttons;
@@ -29,8 +38,8 @@ class Menu extends React.Component{
         if(loggedInName){
             buttons = 
             <div className="logContainer">
-                <span>{loggedInName}</span>
-                <button>Log Out</button>    
+                <span id="displayName">{loggedInName}</span>
+                <button onClick={this.logOut} id="logOutButton">Log Out</button>    
             </div>
 
         }

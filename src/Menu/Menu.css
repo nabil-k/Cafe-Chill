@@ -24,8 +24,34 @@
     display: inline;
 }
 
+#displayName{
+    top: 20px;
+    position: absolute;
+    right: 100px;
+}
+
+#logOutButton{
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    width: 70px;
+}
+
+#logOutButton:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
 #loginButton{
-    background-color: #813a19;
+    background-color: transparent;
     color: #ffffff;
     border: 1px solid #ffffff;
     padding: 5px;
@@ -37,17 +63,17 @@
     margin-right: 10px;
     float: right;
     font-family: 'Roboto', sans-serif;
-    border: none;
     width: 70px;
 }
 
 #loginButton:hover{
-    background-color: #9c4821;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
 
 #registerButton{
-    background-color: #50240f;
+    background-color: transparent;
     color: #ffffff;
     border: 1px solid #ffffff;
     padding: 5px;
@@ -59,12 +85,12 @@
     margin-right: 10px;
     float: right;
     font-family: 'Roboto', sans-serif;
-    border: none;
     width: 70px;
 }
 
 
 #registerButton:hover{
-    background-color: #743315;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     cursor: pointer;
 }
