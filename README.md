@@ -1,4 +1,4 @@
-## Available Scripts
+## Cafe Chill ☕
 
 In the project directory, you can run:
 
