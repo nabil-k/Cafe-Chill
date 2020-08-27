@@ -43,18 +43,16 @@ class Stream extends React.Component{
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
-            });
+            })
+            .catch(error =>{
+                console.log(error)
+            })
         });
     };
     
 
-    initPlayer(){
-        console.log("reved up");
-        this.startPlayer();
-    }
-
     startPlayer(){
-        console.log("rEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        
         // Gets spotify access token
         let code = queryString.parse(this.props.location.search).code
         let refresh_token = localStorage.getItem('refresh_token');
@@ -227,7 +225,7 @@ class Stream extends React.Component{
     }
     
     componentWillMount(){
-        this.initPlayer();
+        this.startPlayer();
     }
 
     componentWillUnmount(){

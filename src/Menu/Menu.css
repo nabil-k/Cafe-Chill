@@ -14,7 +14,8 @@
     color: #ffffff;
     font-family: 'Pacifico', cursive;
     font-size: 32px;
-    position: fixed;
+    position: absolute;
+    left: calc(50% - 72px);
 }
 
 #menu_title_text:hover{

@@ -44,13 +44,6 @@ class App extends React.Component {
         }
 
         this.updateMenu = this.updateMenu.bind(this);
-        this.updatePlayerState = this.updatePlayerState.bind(this);
-    }
-
-    updatePlayerState(){
-        this.setState({
-            player_init: true
-        })
     }
 
     updateMenu(logOut){

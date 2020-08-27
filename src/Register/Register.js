@@ -40,7 +40,7 @@ class Register extends React.Component{
             Cookie.set('jwt',data.jwt);
             console.log(this.props)
             this.props.handler(false);
-            this.props.history.push('/authorize');
+            this.props.history.push('/');
             
         })
        

@@ -33,10 +33,8 @@ class Menu extends React.Component{
     }
 
     render(){
-        console.log(this.props.displayName);
         let loggedInName = this.state.display_name;
         let buttons;
-        console.log(loggedInName)
         if(loggedInName){
             buttons = 
             <div className="logContainer">
