@@ -19,6 +19,7 @@ class Input extends React.Component{
         // Sends chat message
         sendMessage(chatSocket){
             const message = this.state.input_message;
+            console.log(this.chatSocket.readyState);
             console.log(message)
             chatSocket.send(JSON.stringify({
                 'message': message
@@ -36,6 +37,7 @@ class Input extends React.Component{
         }
 
     render(){
+
         return(
             <div>
                 <input id="chat_input" value={this.state.input_message} onChange={this.setInputMessage} placeholder="Say Something... :)" type="text"/>

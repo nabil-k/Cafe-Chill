@@ -1,0 +1,12 @@
+.message_container{
+    margin: 5px;
+    width: 100%;
+}
+
+.message_userName{
+    display: inline-block;
+}
+
+.message_message{
+    display: inline-block;
+}

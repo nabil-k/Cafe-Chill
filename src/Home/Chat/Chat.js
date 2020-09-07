@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Chat.css";
+import './Chat.css';
 import Messages from './Messages';
 import Input from './Input';
 
@@ -12,7 +12,7 @@ class Chat extends React.Component{
 
     render(){
         // Connects to chat
-        const chatSocket = new WebSocket('ws://localhost:8000/ws/chat/');
+        let chatSocket = new WebSocket('ws://localhost:8000/ws/chat/');
 
         return(
             <div id="chat_container">
