@@ -1,23 +1,14 @@
 import React from 'react';
 import "./Chat.css";
 import Messages from './Messages';
+import Input from './Input';
 
 class Chat extends React.Component{
     constructor(props){
-        super(props);
-        
+        super(props);   
     }
 
-    // Sends chat message
-    sendMessage(chatSocket){
-        const message = document.getElementById('chat_input').value;
-        console.log(message)
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
-        // Clears input field after message sent
-        document.getElementById('chat_input').value = ""
-    }
+
 
     render(){
         // Connects to chat
@@ -29,10 +20,7 @@ class Chat extends React.Component{
                     <div id="chat_messageContainer">
                         <Messages chatSocket={chatSocket} />         
                     </div>
-                    <input id="chat_input" type="text"/>
-                    <div>
-                        <button id="send_button">Send</button>
-                    </div>
+                    <Input chatSocket={chatSocket} />
                 </div>
             </div>
         );
