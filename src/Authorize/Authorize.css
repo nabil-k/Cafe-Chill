@@ -31,6 +31,18 @@
     z-index: 2;
 }
 
+#authorizeButtonContainer{
+    width: 200px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+#spotifyAuthLink{
+    text-decoration: none;
+    color: #ffffff;
+}
+
 #authorizeButton{
     width: 200px;
     border: 1px solid rgb(12, 131, 12);
@@ -38,7 +50,6 @@
     padding: 5px;
     background-color: rgb(12, 131, 12);
     display: block;
-    margin: auto;
     text-align: center;
     font-size: 22px;
 }
@@ -47,4 +58,8 @@
     background-color: rgb(12, 172, 12);
     border: 1px solid rgb(12, 172, 12);
     cursor: pointer;
+}
+
+#authorizeWelcomeHeader{
+    text-align: center;
 }
