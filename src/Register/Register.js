@@ -91,10 +91,10 @@ class Register extends React.Component{
                 <div id="registerInputContainer">
                     <form id="registerForm" onSubmit={this.register}>
                         <img src={cafeLogo} width="100" height="100"/>
-                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email" required/>
-                        <input className="registerInput" type="text" value={this.state.display_name} onChange={this.setDisplayName} placeholder="Display Name" required/>
-                        <input className="registerInput" type="password" value={this.state.password} onChange={this.setPassword} placeholder="Password" required/>
-                        <input className="registerInput" type="password" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password" required/>
+                        <input className="registerInput" type="email" value={this.state.email} onChange={this.setEmail} placeholder="Email" autoComplete="email" required/>
+                        <input className="registerInput" type="text" value={this.state.display_name} onChange={this.setDisplayName} placeholder="Display Name" autoComplete="username" required/>
+                        <input className="registerInput" type="password" value={this.state.password} onChange={this.setPassword} placeholder="Password" autoComplete="new-password" required/>
+                        <input className="registerInput" type="password" value={this.state.confirm_password} onChange={this.setPasswordConfirmed} placeholder="Confirm Password" autoComplete="new-password" required/>
                         <input className="registerInput" type="submit" id="registerFormButton" value="Register"/>
                     </form>
                 </div>
