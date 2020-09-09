@@ -20,7 +20,9 @@ class Chat extends React.Component{
                     <div id="chat_messageContainer">
                         <Messages chatSocket={chatSocket} />         
                     </div>
-                    <Input chatSocket={chatSocket} />
+                    <div id="chat_inputContainer">
+                        <Input chatSocket={chatSocket} />
+                    </div>
                 </div>
             </div>
         );

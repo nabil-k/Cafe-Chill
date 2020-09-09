@@ -1,16 +1,16 @@
 #chat_container{
     position: relative;
-    padding: 10px;
     width: 300px;
     height: 100%;
-    background-color: #131b2d;
+    background-color: #070b13;
     float:right;
 }
 
 #chat_box{
-    position:absolute;
-    bottom:80px;
-    width: 280px;
+    position: relative;
+    top: calc(100% - 200px);
+    height: 200px;
+    width: 100%;
 }
 
 #chat_input{
@@ -32,4 +32,13 @@
 
 #send_button:hover{
     background-color: #465881;
+}
+
+#chat_inputContainer{
+    position: relative;
+    bottom: 0px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #121d3a;
 }
