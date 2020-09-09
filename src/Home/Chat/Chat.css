@@ -42,3 +42,9 @@
     height: 100%;
     background-color: #121d3a;
 }
+
+#chat_messageContainer{
+    position: absolute;
+    bottom: 200px;
+    padding: 0px 10px 0px 10px;
+}
