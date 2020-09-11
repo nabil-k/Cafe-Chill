@@ -13,8 +13,12 @@ class Chat extends React.Component{
 
     render(){
         // Connects to chat
-        var accessToken = Cookie.get("jwt");
+        let accessToken = Cookie.get("jwt");
         let chatSocket = new WebSocket("ws://localhost:8000/ws/chat/" + accessToken + "/");
+        
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
 
         return(
             <div id="chat_container">
@@ -23,7 +27,7 @@ class Chat extends React.Component{
                         <Messages chatSocket={chatSocket} />         
                     </div>
                     <div id="chat_inputContainer">
-                        <Input chatSocket={chatSocket} />
+                        <Input displayName={this.props.displayName} chatSocket={chatSocket} />
                     </div>
                 </div>
             </div>

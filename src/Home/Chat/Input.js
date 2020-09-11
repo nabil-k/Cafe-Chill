@@ -44,13 +44,24 @@ class Input extends React.Component{
     }
 
     render(){
+        let userLoggedIn = false
+        console.log(this.props.displayName)
+        if(this.props.displayName){
+            userLoggedIn = true
+        }
+        console.log(userLoggedIn)
 
         return(
             <div>
-                <input id="chat_input" value={this.state.input_message} onKeyDown={this.keyPress} onChange={this.setInputMessage} placeholder="Say Something... :)" type="text"/>
+                <input id="chat_input" value={this.state.input_message} onKeyDown={this.keyPress} onChange={this.setInputMessage} placeholder="Say Something... :)" type="text"  disabled={!userLoggedIn}/>
                 <div>
-                    <button onClick={ ()=> this.sendMessage(this.chatSocket) } id="send_button">Send</button>
+                    <button onClick={ ()=> this.sendMessage(this.chatSocket) } id="send_button"  disabled={!userLoggedIn}>Send</button>
                 </div>
+                {!userLoggedIn &&
+                    <div id="loginToChatMessage">
+                        <span>Chat disabled until you login 😢</span>
+                    </div>
+                }
             </div>
         );
     }

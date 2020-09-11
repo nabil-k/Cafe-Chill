@@ -162,17 +162,6 @@ class Stream extends React.Component{
                                 player.getCurrentState().then(playerState =>{
                                     if(playerState.position >= starting_pos){
                                         startedPlaylist = false;
-                                        if ('mediaSession' in navigator) {
-                                            console.log(track.name)
-                                            console.log(track.album.images[0].url)
-                                            navigator.mediaSession.metadata = new window.MediaMetadata({
-                                              title: track.name,
-                                              artwork: [
-                                                { src: track.album.images[0].url,   sizes: '640x640',   type: 'image/png' },
-                                              ]
-                                            });
-                                            console.log(navigator.mediaSession.metadata)
-                                        }
                                     }
                                 })
                                 
@@ -207,15 +196,6 @@ class Stream extends React.Component{
                                              ),
                                             current_track_image: track.album.images[0].url,
                                         })
-
-                                        if ('mediaSession' in navigator) {
-                                            navigator.mediaSession.metadata = new window.MediaMetadata({
-                                              title: track.name,
-                                              artwork: [
-                                                { src: track.album.images[0].url,   sizes: '640x640',   type: 'image/png' },
-                                              ]
-                                            });
-                                          }
 
                                         changedTrack = true;
                                     }

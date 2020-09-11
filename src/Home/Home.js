@@ -14,7 +14,7 @@ class Home extends React.Component{
     render(){ 
         return(
             <div id="container">
-                <Chat id="chatContainer"/> 
+                <Chat id="chatContainer" displayName={this.props.displayName}/> 
                 <Stream id="streamContainer" location={this.props.location}/>
             </div>
         );

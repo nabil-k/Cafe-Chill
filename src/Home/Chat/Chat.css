@@ -48,3 +48,8 @@
     bottom: 200px;
     padding: 0px 10px 0px 10px;
 }
+
+#loginToChatMessage{
+    color: red;
+    text-align: center;
+}

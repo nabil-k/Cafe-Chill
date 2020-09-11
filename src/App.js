@@ -18,7 +18,7 @@ import Cookie from 'js-cookie'
 class App extends React.Component {
 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             display_name: null,
             player_init: false
@@ -80,7 +80,7 @@ class App extends React.Component {
                     </Route>
                     <Route path="/register" render={(props)=> <Register history={props.history} handler={this.updateMenu}/> } />
                     <Route path="/login" render={(props)=> <Login history={props.history} handler={this.updateMenu}/> } />
-                    <Route path="/home"  render={(props)=> <Home location={props.location} /> } />
+                    <Route path="/home"  render={(props)=> <Home location={props.location} displayName={this.state.display_name} /> } />
                     <Route path="/authorize">
                         <Authorize/>
                     </Route>
