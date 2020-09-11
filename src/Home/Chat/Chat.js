@@ -2,6 +2,7 @@ import React from 'react';
 import './Chat.css';
 import Messages from './Messages';
 import Input from './Input';
+import Cookie from 'js-cookie'
 
 class Chat extends React.Component{
     constructor(props){
@@ -12,7 +13,8 @@ class Chat extends React.Component{
 
     render(){
         // Connects to chat
-        let chatSocket = new WebSocket('ws://localhost:8000/ws/chat/');
+        var accessToken = Cookie.get("jwt");
+        let chatSocket = new WebSocket("ws://localhost:8000/ws/chat/" + accessToken + "/");
 
         return(
             <div id="chat_container">

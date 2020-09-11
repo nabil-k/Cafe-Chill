@@ -40,7 +40,7 @@ class Messages extends React.Component{
         let messages = this.state.messages.map((item, index) =>
             <div key={index} className="message_container">
                 <div className="message_userName">
-                    Username: {item.message}
+                    {item.username}: {item.message}
                 </div>
             </div>
         );
