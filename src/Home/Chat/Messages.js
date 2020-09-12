@@ -28,7 +28,10 @@ class Messages extends React.Component{
     }
 
     updateMessages(message){
-        let messages_updated = this.state.messages.concat(message)
+        let messages_updated = this.state.messages.concat(message);
+        if(messages_updated.length >= 101){
+            messages_updated.shift();
+        }
         this.setState({
             messages: messages_updated
         })

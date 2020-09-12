@@ -20,8 +20,6 @@ class Input extends React.Component{
     // Sends chat message
     sendMessage(chatSocket){
         const message = this.state.input_message;
-        console.log(this.chatSocket.readyState);
-        console.log(message)
         chatSocket.send(JSON.stringify({
             'message': message
         }));
@@ -45,15 +43,15 @@ class Input extends React.Component{
 
     render(){
         let userLoggedIn = false
-        console.log(this.props.displayName)
         if(this.props.displayName){
             userLoggedIn = true
         }
-        console.log(userLoggedIn)
+
+
 
         return(
             <div>
-                <input id="chat_input" value={this.state.input_message} onKeyDown={this.keyPress} onChange={this.setInputMessage} placeholder="Say Something... :)" type="text"  disabled={!userLoggedIn}/>
+                <input id="chat_input" value={this.state.input_message} onKeyDown={this.keyPress} onChange={this.setInputMessage} placeholder="Say Something... :)" type="text"  disabled={!userLoggedIn} autoComplete="off"/>
                 <div>
                     <button onClick={ ()=> this.sendMessage(this.chatSocket) } id="send_button"  disabled={!userLoggedIn}>Send</button>
                 </div>

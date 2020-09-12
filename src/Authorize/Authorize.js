@@ -15,7 +15,7 @@ class Authorize extends React.Component{
                 <div id="header">
                     <h1 id="authorizeWelcomeHeader">Welcome! Connect your Spotify premium account to get started.</h1>
                     <div id="authorizeButtonContainer">
-                        <a id="spotifyAuthLink" href="https://accounts.spotify.com/authorize?client_id=6870c94124564cf595d465acfd572c7a&response_type=code&scope=streaming%20user-read-email%20user-read-private&redirect_uri=http://localhost:3000/home">
+                        <a id="spotifyAuthLink" href="https://accounts.spotify.com/authorize?client_id=009bc2be12a74b61b3c73256c1b2dc49&response_type=code&scope=streaming%20user-read-email%20user-read-private&redirect_uri=http://localhost:3000/home">
                             <div id="authorizeButton">
                                 Connect Spotify
                             </div> 

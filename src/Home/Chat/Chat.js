@@ -6,12 +6,7 @@ import Cookie from 'js-cookie'
 
 class Chat extends React.Component{
     constructor(props){
-        super(props);   
-    }
-
-
-
-    render(){
+        super(props);
         // Connects to chat
         let accessToken = Cookie.get("jwt");
         let chatSocket = new WebSocket("ws://localhost:8000/ws/chat/" + accessToken + "/");
@@ -20,14 +15,24 @@ class Chat extends React.Component{
             console.error('Chat socket closed unexpectedly');
         };
 
+        this.state = {
+            chatSocket: chatSocket
+        }
+
+    }
+
+
+
+    render(){
+
         return(
             <div id="chat_container">
                 <div id="chat_box">
                     <div id="chat_messageContainer">
-                        <Messages chatSocket={chatSocket} />         
+                        <Messages chatSocket={this.state.chatSocket} />         
                     </div>
                     <div id="chat_inputContainer">
-                        <Input displayName={this.props.displayName} chatSocket={chatSocket} />
+                        <Input displayName={this.props.displayName} chatSocket={this.state.chatSocket} />
                     </div>
                 </div>
             </div>
