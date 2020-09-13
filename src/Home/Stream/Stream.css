@@ -5,6 +5,26 @@
     overflow:hidden;
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+#streamInitErrorContainer{
+  z-index: 3;
+  text-align: center;
+  background-color: #000000;
+}
+
+#steamInitErrorMessage{
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+  margin:0px;
+}
+
 #playback_image_container{
     position: relative;
     height: calc(100% - 200px);

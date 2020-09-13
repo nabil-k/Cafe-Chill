@@ -247,8 +247,17 @@ class Stream extends React.Component{
     
     render(){
         return(
-            <div id="streamContainer">
+
+            <div id="streamContainer"> 
                 <div id="playback_image_container" >
+                    {
+                        !this.state.player && 
+                        <div id="streamInitErrorContainer">
+                            <h1 id="steamInitErrorMessage">
+                                Error: Player Could Not Start ❌
+                            </h1>
+                        </div>
+                    }  
                     <div id="playback_image_background" style={ {backgroundImage:`url(${this.state.current_track_image})`} }></div>
                     <img id="playback_image" src={this.state.current_track_image} width="640" height="640"/>
                 </div>
@@ -271,6 +280,8 @@ class Stream extends React.Component{
                     </div>
                 </div>
             </div>
+
+
         );
     }
 }
