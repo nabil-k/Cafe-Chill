@@ -66,6 +66,7 @@
     float: right;
     font-family: 'Roboto', sans-serif;
     width: 70px;
+    transition: all .2s ease-in-out;
 }
 
 #loginButton:hover{
@@ -88,6 +89,7 @@
     float: right;
     font-family: 'Roboto', sans-serif;
     width: 70px;
+    transition: all .2s ease-in-out;
 }
 
 

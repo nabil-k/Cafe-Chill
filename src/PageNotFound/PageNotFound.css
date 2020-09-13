@@ -1,0 +1,5 @@
+#notFoundHeader{
+    position: absolute;
+    bottom: calc(50% - 24px);
+    left: calc(50% - 181px);
+}

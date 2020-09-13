@@ -35,7 +35,6 @@ class Stream extends React.Component{
         }
     }){
         getOAuthToken(token =>{
-            console.log(token); // probably need to get new one here too
             fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`,{
                 method:'PUT',
                 body: JSON.stringify({uris:[spotify_uri]}),
@@ -62,8 +61,6 @@ class Stream extends React.Component{
         })
         .then(response => {
             var responseJSON = response.json();
-            console.log("HERE");
-            console.log(responseJSON);
             
             return responseJSON;
         })
@@ -77,12 +74,9 @@ class Stream extends React.Component{
                     
                     var date = new Date();
                     var tokenTimeLeft = (date.getTime() - localStorage.getItem('token_creation_time')) / 1000;
-                    console.log(tokenTimeLeft);
                     // Creates and uses a new token every 40 minutes (2700 sec)
                     if(tokenTimeLeft >= 2700){
-                        console.log("IF");
                         fetch(`http://127.0.0.1:8000/spotify/accessToken?format=json&code=${code}&refresh_token=${refresh_token}`, {method:'GET', credentials: 'include'})
-                        
                         .then(response => {
                             var responseJSON = response.json();
                             console.log("HERE");
@@ -96,7 +90,6 @@ class Stream extends React.Component{
                             cb(access_token)
                         })
                     }else{
-                        console.log("ELSE")
                         cb(access_token)
                     };
                 }
@@ -110,7 +103,6 @@ class Stream extends React.Component{
 
             // Ready
             player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
                 
                 fetch('http://127.0.0.1:8000/spotify/playlist',{method:'GET'})
                 .then(response =>{
@@ -154,10 +146,8 @@ class Stream extends React.Component{
                     var startedPlaylist = true;
                     var changedTrack = false;
                     player.addListener('player_state_changed', state => { 
-                        console.log(state)
                         // Sets where the track should begin playing
                         if(startedPlaylist){
-                            console.log("setting time..")
                             player.seek(starting_pos).then(()=>{
                                 player.getCurrentState().then(playerState =>{
                                     if(playerState.position >= starting_pos){
@@ -179,8 +169,6 @@ class Stream extends React.Component{
                                         if(track_index === playlist.length){
                                             track_index = 0;
                                         }
-    
-                                        console.log(`New Track Index: ${track_index}`)
     
                                         track = playlist[track_index].track
                                         this.play({
@@ -216,8 +204,6 @@ class Stream extends React.Component{
                     console.log("Player Connected")
                 }
             })
-            console.log(player)
-            //"spotify:track:0K5csd4qfsfVQxm0er12C7"
         })
         .catch(error =>{
             console.log(`Failed to get Spotify Access Token ${error}`)
@@ -229,8 +215,10 @@ class Stream extends React.Component{
     }
 
     componentWillUnmount(){
-        this.state.player.disconnect();
-        console.log("CLOSE?");
+        if(this.state.player){
+            this.state.player.disconnect();
+        }
+
     }
 
     // Handles toggling pause/play
@@ -239,10 +227,11 @@ class Stream extends React.Component{
             toggledPlay: !(this.state.toggledPlay)
         })
 
-        this.state.player.togglePlay().then().catch(error => {
-            console.error(error)
-        })
-
+        if(this.state.player){
+            this.state.player.togglePlay().then().catch(error => {
+                console.error(error)
+            })
+        }
     }
 
     // Adjusts player volume
@@ -251,9 +240,9 @@ class Stream extends React.Component{
         this.setState({
             volume: newVolume
         })
-        this.state.player.setVolume(this.state.volume).then(() => {
-            console.log('Volume updated: ' + this.state.volume);
-        });
+        if(this.state.player){
+            this.state.player.setVolume(this.state.volume)
+        }   
     }
     
     render(){

@@ -12,6 +12,7 @@ import Menu from './Menu/Menu';
 import Profile from './Profile/Profile';
 import Authorize from './Authorize/Authorize';
 import Register from './Register/Register';
+import PageNotFound from './PageNotFound/PageNotFound';
 import Login from './Login/Login'
 import Cookie from 'js-cookie'
 
@@ -87,7 +88,8 @@ class App extends React.Component {
                     <Route exact path="/">
                         <Redirect to={(localStorage.getItem('refresh_token') !== null) ? '/home' : '/authorize'} />
                     </Route>
-                    
+                    <Route path="/404" component={PageNotFound} />
+                    <Redirect to="/404" />
                 </Switch>
             </Router>
         );
