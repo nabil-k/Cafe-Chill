@@ -13,7 +13,7 @@ class Stream extends React.Component{
             current_track_name: null,
             current_track_artists: null,
             current_track_image: null,
-            current_track_volume: null,
+            volume: localStorage.getItem('player_volume'),
             toggledPlay: false
         }
         
@@ -128,8 +128,8 @@ class Stream extends React.Component{
                         playerInstance: player,
                         spotify_uri: track.uri,
                     })
-
-                    player.getVolume().then(volume => {
+                    
+                    player.setVolume(this.state.volume).then( () => {
                         this.setState({
                             player: player,
                             current_track_name: track.name,
@@ -138,7 +138,6 @@ class Stream extends React.Component{
                                     <span>{artist.name}</span>
                              ),
                             current_track_image: track.album.images[0].url,
-                            current_track_volume: volume
                         })
                     })
 
@@ -236,7 +235,8 @@ class Stream extends React.Component{
 
     // Adjusts player volume
     adjustVolume(event){
-        var newVolume = event.target.value / 100;
+        let newVolume = event.target.value / 100;
+        localStorage.setItem('player_volume', newVolume)
         this.setState({
             volume: newVolume
         })
@@ -254,7 +254,7 @@ class Stream extends React.Component{
                         !this.state.player && 
                         <div id="streamInitErrorContainer">
                             <h1 id="steamInitErrorMessage">
-                                Error: Player Could Not Start ❌
+                                Error: Player Not Started ❌
                             </h1>
                         </div>
                     }  
