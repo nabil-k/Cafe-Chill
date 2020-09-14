@@ -1,4 +1,4 @@
-## Cafe Chill ☕
+## Cafe Chill [No Longer Updating Repo: Migrated React App into Private Django Server] ☕
 
 In the project directory, you can run:
 
